@@ -36,12 +36,11 @@ if __name__ == '__main__':
     Syntax = []
     Lex = []
     lgs = ['DE', 'RU', 'JA', "ZH", "AR", 'FI',	'TR',	'ID', 
-        	'EU',	'KA',	'BN',	'KK',	'UR']
+        	'EU',	'KA',	'BN',	'KK',	'UR', 'KO']
     lexEngine = LexicalSimilarity(lg_list= lgs)
 
     for src_lg in ['DE', 'RU', 'JA', "ZH", 'AR']:
         for tgt_lg in lgs:
-            print (src_lg, tgt_lg)
             if src_lg == tgt_lg:
                 continue
             Y.append(df.loc[src_lg][tgt_lg])
@@ -53,5 +52,6 @@ if __name__ == '__main__':
             Syntax.append(syn)
             Genetics.append(gen)
             Lex.append(lex)
+            print (src_lg, tgt_lg, lex)
     print (Lex)
      
