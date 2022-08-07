@@ -57,7 +57,8 @@ if __name__ == '__main__':
     X = np.column_stack((df_results['geo'], df_results['gen'],
     df_results['syn'], 
     df_results['lex'], 
-    df_results['datasize']))
+    # df_results['datasize']
+    ))
     y = df_results['score']
     X2 = sm.add_constant(X)
     est = sm.OLS(y, X2)
