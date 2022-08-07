@@ -36,26 +36,29 @@ if __name__ == '__main__':
     lg2traindata= {'DE': 50000, 'RU': 28286, 'JA': 16142, 'ZH': 13154, 'AR': 9622}
     lexEngine = LexicalSimilarity(lg_list= lgs)
 
-    for src_lg in ['DE', 'RU', 'JA', "ZH", 'AR']:
+    for src_lg in ['DE','RU', 'JA', 'ZH', 'AR']:
         for tgt_lg in lgs:
             if src_lg == tgt_lg:
                 continue
+            print (src_lg, tgt_lg)
             gen, geo, syn = l2v.distance(["genetic", "geographic", "syntactic"], 
                     l2v.LETTER_CODES[src_lg.lower()], 
                     l2v.LETTER_CODES[tgt_lg.lower()])
             lex = lexEngine.compute_lex_similarity(src_lg.lower(), tgt_lg.lower())
             items.append({'geo':geo, 'syn':syn, 
-                'gen': gen, 'lex':lex, 'datasize':lg2traindata[src_lg], 
-                'score': df.loc[src_lg][tgt_lg]})
+                'gen': gen, 'datasize':lg2traindata[src_lg], 
+                'score': df.loc[src_lg][tgt_lg],
+                'lex': lex
+                })
     df_results = pd.DataFrame(items)
 
-    from sklearn.linear_model import LinearRegression
-    from sklearn.metrics import r2_score
     import statsmodels.api as sm
     import numpy as np
     X = np.column_stack((df_results['geo'], df_results['gen'],
-    df_results['syn'], df_results['lex'], df_results['datasize']))
-    y = data['score']
+    df_results['syn'], 
+    df_results['lex'], 
+    df_results['datasize']))
+    y = df_results['score']
     X2 = sm.add_constant(X)
     est = sm.OLS(y, X2)
     est2 = est.fit()
