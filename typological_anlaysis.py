@@ -9,7 +9,7 @@ class LexicalSimilarity():
     def store_vocabs(self, lg_list):
         vocab_all = {}
         for lg in lg_list:
-            vocab_all[lg] = self.calculate_vocab(lg.lower())
+            vocab_all[lg.lower()] = self.calculate_vocab(lg.lower())
         self.vocab_all = vocab_all
 
     def calculate_vocab(self, lg):
