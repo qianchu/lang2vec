@@ -12,7 +12,7 @@ class LexicalSimilarity():
             vocab_all[lg] = self.calculate_vocab(lg)
         self.vocab_all = vocab_all
 
-    def calculate_vocab(self, lg, vocab):
+    def calculate_vocab(self, lg):
         fname = f'/mnt/hdd/ql261/wikicorpora/wikiextracted/{lg}/contexts_raw_orig2.wic'
         vocab = set()
         for line in open(fname).readlines()[:10000]:
